@@ -1,0 +1,21 @@
+server:
+  port: 8091
+dubbo:
+  scan:
+    base-packages: com.dubbo.provider.service
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: kryo
+  registry:
+    address: spring-cloud://localhost
+spring:
+  application:
+    name: dubbo-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://10.30.23.74:30979
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true

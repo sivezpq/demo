@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.security.mapper.SecurityUserMapper">
+    <sql id="table">user</sql>
+    <sql id="selectFields">id,userid,password,username,state</sql>
+    <select id="findByUsername" resultType="com.website.framework.security.entity.SecurityUser">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        userid=#{username,jdbcType=VARCHAR}
+    </select>
+</mapper>

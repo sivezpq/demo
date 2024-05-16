@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+<h2>登录页面</h2>
+<hr>
+<form action="" method="POST">
+    用户名<input type="text" name="username" id="username"/> <br>
+    密码 <input type="password" name="password" id="password"/>  <br>
+    <input type="button" value="登录" id="submitBtn">
+    <input type="button" value="退出" id="exitBtn">
+</form>
+<script type="text/javascript" src="html/js/Globals.js"></script>
+<script type="text/javascript" src="html/js/jquery-1.11.1.min.js"></script>
+<script>
+    var jq=jQuery.noConflict();
+    //页面初始化
+    jq(document).ready(function(){
+        jq("#submitBtn").click(submitclick);
+        jq("#exitBtn").click(exitclick);
+    });
+    //登录事件
+    function submitclick(){
+        var param = new Object();
+        param.username = jq("#username").val();
+        param.password = jq("#password").val();
+        jq.ajaxRequest({
+            url: appname.WEB_APP_NAME+"/security_check",
+            data: param,
+            success:function(json){
+                if(json){
+                    alert(json.status);
+                    alert(json.message);
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+            }
+        });
+    }
+    //退出事件
+    function exitclick(){
+        var param = new Object();
+        jq.ajaxRequest({
+            url: appname.WEB_APP_NAME+"/exitlogin",
+            data: param,
+            success:function(json){
+                if(json){
+                    alert(json.status);
+                    alert(json.message);
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+            }
+        });
+    }
+</script>
+</body>
+</html>

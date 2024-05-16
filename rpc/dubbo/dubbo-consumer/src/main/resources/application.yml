@@ -1,0 +1,23 @@
+server:
+  port: 8092
+dubbo:
+  cloud:
+    subscribed-services: dubbo-provider
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: kryo
+  registry:
+    address: spring-cloud://localhost
+  consumer:
+    check: false
+spring:
+  application:
+    name: dubbo-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://10.30.23.74:30979
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true

@@ -1,0 +1,22 @@
+server:
+  port: 8088
+
+spring:
+  codec:
+    max-in-memory-size: 5MB
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+minio:
+  url: http://10.30.23.74:31305
+  accessKey: mimir
+  secretKey: supersecret
+  bucketName: loki-data
+
+messageCodes:
+  maxParts: 1
+  maxInMemorySize: 5242880
+  maxDiskUsagePerPart: 52428800
+  enableLoggingRequestDetails: true
