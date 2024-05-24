@@ -1,0 +1,15 @@
+一、tika插件读取文档内容，文档类型：pdf、doc、docx、txt、xls、xlsx、ppt、pptx
+pom.xml
+<dependencies>
+    <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-core</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-parsers-standard-package</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+</dependencies>
+代码部分是tika包

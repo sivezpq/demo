@@ -19,6 +19,7 @@
     <module>sentinel</module>
     <module>website</module>
     <module>xxljob</module>
+    <module>document</module>
   </modules>
 
   <properties>
