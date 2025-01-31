@@ -1,4 +1,3 @@
-1，数字签名：com.common.certificate
 公钥发给A,B
 ![img_1.png](img_1.png)
 张三接邮件

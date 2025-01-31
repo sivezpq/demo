@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.util.IOUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +14,18 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -254,6 +261,7 @@ public class BscSimpleClient implements BscClient {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         try{
             objectMetadata.setContentLength(Long.valueOf(input.available()));
+            // objectMetadata.setContentType(contextType);
         }catch(IOException e){
             throw new BscException("白山云上传文件失败", e);
         }
@@ -321,5 +329,4 @@ public class BscSimpleClient implements BscClient {
 
         return sb.toString();
     }
-
 }

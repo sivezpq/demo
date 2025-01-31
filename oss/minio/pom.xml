@@ -69,6 +69,19 @@
                     </image>
                 </configuration>
             </plugin>
+            <!-- 在打好的jar包中保留javadoc注释,实际会另外生成一个xxxxx-sources.jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

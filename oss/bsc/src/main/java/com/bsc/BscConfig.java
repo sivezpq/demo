@@ -1,7 +1,11 @@
 package com.bsc;
 
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -27,10 +31,12 @@ public class BscConfig {
      */
     @Bean
     public BscClient bscClient(BscProperties awsProperties) {
+        // 凭证配置
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(
                 awsProperties.getAccessKey(), awsProperties.getSecretKey());
 
         ClientConfiguration clientconfiguration = new ClientConfiguration();
+        // clientconfiguration.setMaxConnections(awsProperties.getMaxConnections());
         clientconfiguration.setSocketTimeout(60 * 60 * 1000); // in milliseconds
         clientconfiguration.setConnectionTimeout(60 * 60 * 1000); // in milliseconds
 
@@ -44,6 +50,7 @@ public class BscConfig {
         log.info(String.format("bsc client init success, accessKey: %s, secretKey: %s, bucketName: %s, endpoint: %s",
                 awsProperties.getAccessKey(), awsProperties.getSecretKey(), awsProperties.getBucketName(),
                 awsProperties.getEndpoint()));
+
         return new BscSimpleClient(s3);
     }
 

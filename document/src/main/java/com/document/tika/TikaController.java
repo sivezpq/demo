@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 模板Controller
@@ -26,7 +28,7 @@ public class TikaController
     @ResponseBody
     public String template() throws Exception
     {
-        String content = tika.parseToString(new File("/Users/huagang/Downloads/mysql参数.xlsx"));
+        String content = tika.parseToString(new File("/Users/huagang/study/配置防止浏览器直接打开下载的文件.txt"));
         return content;
     }
 
