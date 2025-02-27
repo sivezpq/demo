@@ -20,6 +20,8 @@
     <module>website</module>
     <module>xxljob</module>
     <module>document</module>
+    <module>springsecurity</module>
+    <module>springoauth</module>
   </modules>
 
   <properties>

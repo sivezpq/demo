@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: application-springsecurity
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  # \u6A21\u677F\u5F15\u64CE
+  thymeleaf:
+    # prefix: classpath:/custom-templates/\uFF0C\u9ED8\u8BA4\u503Cclasspath:/templates/
+    # prefix: file:/E:/Users/xxx/Desktop/ \u672C\u673A\u4E0A
+    # prefix: https://" + bucket+ ".oss-" + endPoint+ "/templates/ OSS\u4E91\u4E0A
+    # suffix: .html
+    mode: HTML
+    encoding: utf-8
+    # \u7981\u7528\u7F13\u5B58
+    cache: false
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&verifyServerCertificate=false&autoReconnct=true&autoReconnectForPools=true&allowMultiQueries=true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: huag
+      password: huag123456
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      pool-prepared-statements: false
+      validation-query: select 'x'
+      test-while-idle: true
+      min-evictable-idle-time-millis: 300000
+      filters: stat,wall,log4j
+      web-stat-filter:
+        enabled: true
+        url-pattern: '/*'
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: 123456
+
+mybatis:
+  mapper-locations: classpath:/mybatis/mappers/*Mapper.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+
+jwt:
+  secret: secret
+  expiration: 7200000
+  token: Authorization

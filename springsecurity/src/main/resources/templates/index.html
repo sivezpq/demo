@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>springsecury oauth2</title>
+    <meta name="description" content="springsecury oauth2">
+    <style type="text/css">label.error { position:inherit;  }</style>
+    <script>
+        if(window.top!==window.self){alert('未登录或登录超时。请重新登录');window.top.location=window.location};
+    </script>
+</head>
+<body class="signin" style="height: 80%;">
+<div class="signinpanel" style="height: 100%;">
+    <div class="row" style="height: 90%;">
+        <div class="col-sm-6">
+            <div class="signin-info">
+                <h1><strong>springsecury oauth demo</strong></h1>
+                <!--                    <ul class="m-b">-->
+                <!--                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> SpringBoot</li>-->
+                <!--                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Mybatis</li>-->
+                <!--                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Shiro</li>-->
+                <!--                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Thymeleaf</li>-->
+                <!--                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Bootstrap</li>-->
+                <!--                    </ul>-->
+                <strong>还没有账号？ <a th:href="@{/register}">立即注册&raquo;</a></strong>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <form id="signupForm" autocomplete="off">
+                <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value="" />
+                <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="" />
+                <div class="checkbox-custom">
+                    <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
+                </div>
+                <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍候...">登录</button>
+            </form>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div style="text-align: center;">
+            <a href="javascript:void(0)" onclick="qqLogin()"><img src="/static/images/qq.png" alt="qq登陆"></a></a>
+            <br>
+            <a href="javascript:void(0)" onclick="wxLogin()"><img src="/static/images/wx.png" alt="微信登陆"></a></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
