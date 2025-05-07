@@ -1,0 +1,21 @@
+server: 
+  port: 8082
+
+AK: MUL4TVLSXOORBJSMBW3Q
+SK: Qsx8dBFciHAnj2p3nHmsBITtMO6YKNHVTvUYasiM
+north: cn-north-4
+
+# 数据源配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zhuxunsaasdb?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    username: huag
+    password: huag123456
+
+# Canal配置
+canal: 
+  server:
+    ip: 127.0.0.1
+  port: 11111
+  destination: example

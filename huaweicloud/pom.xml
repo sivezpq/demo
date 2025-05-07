@@ -36,6 +36,23 @@
             <artifactId>huaweicloud-sdk-bundle</artifactId>
             <version>3.1.7</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.otter</groupId>
+            <artifactId>canal.client</artifactId>
+            <version>1.1.5</version>
+        </dependency>
     </dependencies>
 
     <build>
