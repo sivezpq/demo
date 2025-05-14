@@ -22,6 +22,7 @@
     <module>document</module>
     <module>springsecurity</module>
     <module>springoauth</module>
+    <module>mqtt</module>
   </modules>
 
   <properties>

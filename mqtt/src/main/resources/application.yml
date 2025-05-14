@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: mqtt
+
+# MQTT配置
+mqtt:
+  enabled: true  # 是否启用MQTT功能
+  broker-url: tcp://localhost:11883 # MQTT代理服务器地址
+  client-id: yian-mqtt-client # 客户端ID，必须唯一
+  username: admin # 用户名（如果需要）
+  password: public # 密码（如果需要）
+  topics:
+    topic1: test/topic_1
+    topic2: test/topic_2
+    topic3: test/topic_3
+  qos: 1 # 消息质量等级（0、1或2）
+  automatic-reconnect: true # 自动重连
+  clean-session: true # 是否清除会话
+  connection-timeout: 5000 # 连接超时时间（秒）
+  keep-alive-interval: 30 # 保持连接时间（秒）
+  pool-config:
+    core-size: 8
+    max-size: 32
+    queue-capacity: 1024
+    thread-name-prefix: mqtt-worker-
