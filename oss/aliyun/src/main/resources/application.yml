@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+oss:
+  aliyun:
+    enable: true
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    region: cn-beijing
+    access-key-id: 111
+    access-key-secret: 2222
+    bucket-name: sensteed
+    domain: https://cdn.aliyuncs.com
+    default-download-url-expires: 3600000
+    default-upload-url-expires: 3600000

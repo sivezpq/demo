@@ -14,6 +14,7 @@
     <module>lock</module>
     <module>oss/bsc</module>
     <module>oss/minio</module>
+    <module>oss/aliyun</module>
     <module>rpc/dubbo</module>
     <module>rpc/springcloud</module>
     <module>sentinel</module>
