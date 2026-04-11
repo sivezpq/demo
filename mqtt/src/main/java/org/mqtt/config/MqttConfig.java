@@ -5,7 +5,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -50,7 +50,7 @@ public class MqttConfig {
     }
 
     private MqttClient createMqttClient() throws MqttException {
-        return new MqttClient(mqttProperties.getBrokerUrl(), generateClientId(), new MemoryPersistence());
+        return new MqttClient(mqttProperties.getBrokerUrl(), generateClientId(), new MqttDefaultFilePersistence("/Users/huagang/software/intellij/customize/demo/mqtt/mqtt-data"));
     }
 
     private String generateClientId() {

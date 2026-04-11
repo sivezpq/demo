@@ -49,7 +49,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class RestTemplateConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestTemplateConfig.class);
 
     /**
      * #设置整个连接池最大连接数 根据自己的场景决定

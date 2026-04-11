@@ -24,6 +24,7 @@
     <module>springsecurity</module>
     <module>springoauth</module>
     <module>mqtt</module>
+    <module>aliyun-mqtt</module>
   </modules>
 
   <properties>

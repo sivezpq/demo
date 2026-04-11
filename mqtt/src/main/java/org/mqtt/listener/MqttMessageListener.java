@@ -19,6 +19,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 消息回调，处理接收的消息
+ * MqttCallback三个接口方法
+ * 1，连接中断处理
+ * void connectionLost(Throwable var1);
+ * 2，消息到达处理
+ * void messageArrived(String var1, MqttMessage var2) throws Exception;
+ * 3，投递完成处理
+ * void deliveryComplete(IMqttDeliveryToken var1);
  */
 @Slf4j
 @Component
