@@ -1,7 +1,7 @@
 package com.common.util.encryptionalgorithm;
 
 import com.common.exception.GlobalException;
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 import java.io.UnsupportedEncodingException;
@@ -32,9 +32,9 @@ public class ECDSAUtils {
             keyGen.initialize(ecSpec, new SecureRandom());
             KeyPair keyPair = keyGen.generateKeyPair();
             ECPublicKey ecPublicKey = (ECPublicKey)keyPair.getPublic();
-            publicKey = Base64Utils.encodeToString(ecPublicKey.getEncoded());
+            publicKey = Base64.getEncoder().encodeToString(ecPublicKey.getEncoded());
             ECPrivateKey ecPrivateKey = (ECPrivateKey)keyPair.getPrivate();
-            privateKey = Base64Utils.encodeToString(ecPrivateKey.getEncoded());
+            privateKey = Base64.getEncoder().encodeToString(ecPrivateKey.getEncoded());
         }catch(Exception ex){
             throw new GlobalException("初始化密钥失败！", ex);
         }
@@ -56,7 +56,7 @@ public class ECDSAUtils {
         // PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
         //         new PKCS8EncodedKeySpec(rsaPrivateKey.getEncoded());
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
-                new PKCS8EncodedKeySpec(Base64Utils.decodeFromString(privateKey));
+                new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));
         KeyFactory keyFactory = KeyFactory.getInstance("EC");
         PrivateKey priKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Signature signature = Signature.getInstance(alg);
@@ -84,7 +84,7 @@ public class ECDSAUtils {
         // X509EncodedKeySpec x509EncodedKeySpec =
         //         new X509EncodedKeySpec(rsaPublicKey.getEncoded());
         X509EncodedKeySpec x509EncodedKeySpec =
-                new X509EncodedKeySpec(Base64Utils.decodeFromString(publicKey));
+                new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));
         KeyFactory keyFactory = KeyFactory.getInstance("EC");
         PublicKey pubKey = keyFactory.generatePublic(x509EncodedKeySpec);
         Signature signature = Signature.getInstance(alg);
@@ -98,7 +98,7 @@ public class ECDSAUtils {
             try{
                 // 获取公钥
                 X509EncodedKeySpec x509EncodedKeySpec =
-                        new X509EncodedKeySpec(Base64Utils.decodeFromString(publicKey));
+                        new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 PublicKey pubKey = keyFactory.generatePublic(x509EncodedKeySpec);
                 //使用RSA公钥加密
@@ -120,7 +120,7 @@ public class ECDSAUtils {
             try{
                 //获取私钥
                 PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
-                        new PKCS8EncodedKeySpec(Base64Utils.decodeFromString(privateKey));
+                        new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 PrivateKey priKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
                 //使用RSA私钥解密

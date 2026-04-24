@@ -1,6 +1,6 @@
 package com.common.signature;
 
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -19,7 +19,7 @@ public class RsaSignature {
         // PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
         //         new PKCS8EncodedKeySpec(rsaPrivateKey.getEncoded());
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
-                new PKCS8EncodedKeySpec(Base64Utils.decodeFromString(privateKey));
+                new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PrivateKey priKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Signature signature = Signature.getInstance(alg);
@@ -35,7 +35,7 @@ public class RsaSignature {
         // X509EncodedKeySpec x509EncodedKeySpec =
         //         new X509EncodedKeySpec(rsaPublicKey.getEncoded());
         X509EncodedKeySpec x509EncodedKeySpec =
-                new X509EncodedKeySpec(Base64Utils.decodeFromString(publicKey));
+                new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey pubKey = keyFactory.generatePublic(x509EncodedKeySpec);
         Signature signature = Signature.getInstance(alg);

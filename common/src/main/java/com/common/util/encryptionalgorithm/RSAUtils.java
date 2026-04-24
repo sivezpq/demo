@@ -2,7 +2,7 @@ package com.common.util.encryptionalgorithm;
 
 import com.common.exception.GlobalException;
 import com.common.signature.RsaSignature;
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 import java.io.UnsupportedEncodingException;
@@ -29,9 +29,9 @@ public class RSAUtils {
             keyPairGenerator.initialize(512);
             KeyPair keyPair = keyPairGenerator.generateKeyPair();
             RSAPublicKey rsaPublicKey = (RSAPublicKey)keyPair.getPublic();
-            publicKey = Base64Utils.encodeToString(rsaPublicKey.getEncoded());
+            publicKey = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());
             RSAPrivateKey rsaPrivateKey = (RSAPrivateKey)keyPair.getPrivate();
-            privateKey = Base64Utils.encodeToString(rsaPrivateKey.getEncoded());
+            privateKey = Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded());
         }catch(Exception ex){
             throw new GlobalException("初始化密钥失败！", ex);
         }
@@ -53,7 +53,7 @@ public class RSAUtils {
         // PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
         //         new PKCS8EncodedKeySpec(rsaPrivateKey.getEncoded());
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
-                new PKCS8EncodedKeySpec(Base64Utils.decodeFromString(privateKey));
+                new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PrivateKey priKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Signature signature = Signature.getInstance(alg);
@@ -81,7 +81,7 @@ public class RSAUtils {
         // X509EncodedKeySpec x509EncodedKeySpec =
         //         new X509EncodedKeySpec(rsaPublicKey.getEncoded());
         X509EncodedKeySpec x509EncodedKeySpec =
-                new X509EncodedKeySpec(Base64Utils.decodeFromString(publicKey));
+                new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey pubKey = keyFactory.generatePublic(x509EncodedKeySpec);
         Signature signature = Signature.getInstance(alg);
@@ -95,7 +95,7 @@ public class RSAUtils {
             try{
                 // 获取公钥
                 X509EncodedKeySpec x509EncodedKeySpec =
-                        new X509EncodedKeySpec(Base64Utils.decodeFromString(publicKey));
+                        new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 PublicKey pubKey = keyFactory.generatePublic(x509EncodedKeySpec);
                 //使用RSA公钥加密
@@ -117,7 +117,7 @@ public class RSAUtils {
             try{
                 //获取私钥
                 PKCS8EncodedKeySpec pkcs8EncodedKeySpec =
-                        new PKCS8EncodedKeySpec(Base64Utils.decodeFromString(privateKey));
+                        new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 PrivateKey priKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
                 //使用RSA私钥解密

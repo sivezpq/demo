@@ -4,7 +4,7 @@ import com.common.exception.GlobalException;
 import com.common.util.DateUtils;
 import com.common.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;

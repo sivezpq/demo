@@ -1,11 +1,11 @@
 package org.mqtt.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
+import org.eclipse.paho.mqttv5.client.*;
+import org.eclipse.paho.mqttv5.client.persist.MemoryPersistence;
+import org.eclipse.paho.mqttv5.client.persist.MqttDefaultFilePersistence;
+import org.eclipse.paho.mqttv5.common.MqttException;
+import org.eclipse.paho.mqttv5.common.MqttMessage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -26,26 +26,46 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class MqttConfig {
     private static final List DEFAULT_TOPICS = Collections.singletonList("defaultTopic");
     private final MqttProperties mqttProperties;
-    private final MqttCallback mqttCallback;
 
-    public MqttConfig(MqttProperties mqttProperties, MqttCallback mqttCallback) {
+    public MqttConfig(MqttProperties mqttProperties) {
         this.mqttProperties = mqttProperties;
-        this.mqttCallback = mqttCallback;
     }
 
     @Bean
-    public MqttClient mqttClient() throws MqttException {
-        MqttClient client = createMqttClient();
-        MqttConnectOptions options = buildMqttConnectOptions();
-        try {
-            client.connect(options);
-            log.info("MQTT连接成功，Broker地址: {}", mqttProperties.getBrokerUrl());
-            subscribeTopics(client);
-        } catch (MqttException e) {
-            log.error("MQTT连接异常: {}，错误码: {}", e.getMessage(), e.getReasonCode(), e);
-            throw new RuntimeException("MQTT连接失败", e);
-        }
-        client.setCallback(mqttCallback);
+    public MqttAsyncClient mqttClient() throws MqttException {
+        MqttAsyncClient client =
+//                new MqttAsyncClient(mqttProperties.getBrokerUrl(), generateClientId(),
+//                        new MemoryPersistence());
+                new MqttAsyncClient(mqttProperties.getBrokerUrl(), generateClientId(),
+                        new MqttDefaultFilePersistence("/Users/huagang/software/intellij/customize /demo/mqtt/mqtt-data"));
+
+        client.setCallback(new MqttCallback() {
+            @Override
+            public void messageArrived(String topic, MqttMessage message) {
+                System.out.println("Received: " + new String(message.getPayload()));
+            }
+
+            @Override
+            public void deliveryComplete(IMqttToken token) {
+            }
+
+            @Override
+            public void connectComplete(boolean reconnect, String serverURI) {
+            }
+
+            @Override
+            public void authPacketArrived(int i, org.eclipse.paho.mqttv5.common.packet.MqttProperties mqttProperties) {
+
+            }
+
+            @Override
+            public void disconnected(MqttDisconnectResponse disconnectResponse) {
+            }
+
+            @Override
+            public void mqttErrorOccurred(MqttException exception) {
+            }
+        });
         return client;
     }
 
@@ -57,22 +77,6 @@ public class MqttConfig {
         return Optional.ofNullable(mqttProperties.getClientId())
                         .filter(StringUtils::hasText)
                         .orElseGet(() -> "CLIENT_" + System.currentTimeMillis());
-    }
-
-    private MqttConnectOptions buildMqttConnectOptions() {
-        MqttConnectOptions options = new MqttConnectOptions();
-        options.setAutomaticReconnect(mqttProperties.isAutomaticReconnect());
-        options.setCleanSession(mqttProperties.isCleanSession());
-        Optional.ofNullable(mqttProperties.getUsername())
-                .filter(StringUtils::hasText)
-                .ifPresent(options::setUserName);
-        Optional.ofNullable(mqttProperties.getPassword())
-                .filter(StringUtils::hasText)
-                .map(String::toCharArray)
-                .ifPresent(options::setPassword);
-        options.setConnectionTimeout(mqttProperties.getConnectionTimeout());
-        options.setKeepAliveInterval(mqttProperties.getKeepAliveInterval());
-        return options;
     }
 
     private void subscribeTopics(MqttClient client) throws MqttException {

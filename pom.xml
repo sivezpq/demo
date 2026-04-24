@@ -18,11 +18,8 @@
     <module>rpc/dubbo</module>
     <module>rpc/springcloud</module>
     <module>sentinel</module>
-    <module>website</module>
     <module>xxljob</module>
     <module>document</module>
-    <module>springsecurity</module>
-    <module>springoauth</module>
     <module>mqtt</module>
     <module>aliyun-mqtt</module>
   </modules>
@@ -32,10 +29,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>17</java.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <!-- Spring相关版本管理-->
-    <spring-boot.version>2.6.11</spring-boot.version>
-    <spring-cloud.version>2021.0.4</spring-cloud.version>
-    <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
+    <spring-boot.version>3.5.13</spring-boot.version>
+    <spring-cloud.version>2025.0.2</spring-cloud.version>
+    <spring-cloud-alibaba-dependencies.version>2025.0.0.0</spring-cloud-alibaba-dependencies.version>
   </properties>
 
   <dependencyManagement>
@@ -108,4 +107,33 @@
 <!--      </url>-->
 <!--    </snapshotRepository>-->
 <!--  </distributionManagement>-->
+
+
+<build>
+  <!-- 插件版本统一管理（推荐做法） -->
+  <pluginManagement>
+    <plugins>
+      <!-- Maven 编译器插件（Java 17） -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <release>${java.version}</release>
+        </configuration>
+      </plugin>
+
+      <!-- Spring Boot Maven 插件（父 POM 中只定义版本） -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+      </plugin>
+
+    </plugins>
+  </pluginManagement>
+</build>
 </project>

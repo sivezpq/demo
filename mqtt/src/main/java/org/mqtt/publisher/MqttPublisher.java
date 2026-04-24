@@ -1,9 +1,9 @@
 package org.mqtt.publisher;
 
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.mqttv5.client.MqttClient;
+import org.eclipse.paho.mqttv5.common.MqttException;
+import org.eclipse.paho.mqttv5.common.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -15,8 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class MqttPublisher {
-    @Autowired
-    @Lazy
+
     private MqttClient mqttClient;
     @Value("${ mqtt.qos:1} ")
     private int qosLevel;

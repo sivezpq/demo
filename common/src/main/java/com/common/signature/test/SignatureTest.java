@@ -3,7 +3,7 @@ package com.common.signature.test;
 import com.common.signature.KeyGenerator;
 import com.common.signature.RsaSignature;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -31,7 +31,7 @@ public class SignatureTest {
         String signStrSha256Hex = DigestUtils.sha256Hex(decode(srcStr));
         System.out.println("客户端摘要:"+signStrSha256Hex);
         //对摘要加签，获取数字信封
-        String signStr = Base64Utils.encodeToString(RsaSignature.sign(keyGenerator.getPrivateKey(), signStrSha256Hex.getBytes()));
+        String signStr = Base64.getEncoder().encodeToString(RsaSignature.sign(keyGenerator.getPrivateKey(), signStrSha256Hex.getBytes()));
         System.out.println("签名："+signStr);
         //将明文、数字信封发送给服务端
 
@@ -41,7 +41,7 @@ public class SignatureTest {
         String signStrSha256Hex1 = DigestUtils.sha256Hex(decode(srcStr));
         System.out.println("服务端摘要:"+signStrSha256Hex1);
         //验签
-        boolean result = RsaSignature.verify(keyGenerator.getPublicKey(), signStrSha256Hex1.getBytes(), Base64Utils.decodeFromString(signStr));
+        boolean result = RsaSignature.verify(keyGenerator.getPublicKey(), signStrSha256Hex1.getBytes(), Base64.getDecoder().decode(signStr));
         System.out.println("验签结果："+result);
     }
 

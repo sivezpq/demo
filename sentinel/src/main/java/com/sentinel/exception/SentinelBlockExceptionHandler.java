@@ -1,6 +1,6 @@
 package com.sentinel.exception;
 
-import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
+import com.alibaba.csp.sentinel.adapter.spring.webmvc_v6x.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
@@ -12,15 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.common.response.Response;
 
 @Component
 public class SentinelBlockExceptionHandler implements BlockExceptionHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, BlockException e) throws Exception {
+    public void handle(HttpServletRequest request, HttpServletResponse response, String resourceName, BlockException e) throws Exception {
         Response<Object> resultObject = null;
         //根据限流降级的策略规则，不同的异常返回不同的提示语，
         if (e instanceof FlowException) {

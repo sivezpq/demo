@@ -5,7 +5,7 @@ import com.common.response.ResultEnum;
 import com.common.response.ResponseUtil;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Created by IntelliJ IDEA

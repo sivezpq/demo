@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.CharBuffer;
@@ -32,7 +32,7 @@ public class RequestParam {
      * @return 按升序排序过QueryString格式的请求参数
      */
     public static String getQueryParams(ServerHttpRequest request) {
-        String method = request.getMethodValue();
+        String method = request.getMethod().name();
         // 升序：Comparator.naturalOrder()，降序：Comparator.reverseOrder()
         TreeMap<String, Object> resultMap = new TreeMap<>(Comparator.naturalOrder());
         Map<String, Object> headerMap = getHeaderSpecifyParam(request);
@@ -276,7 +276,7 @@ public class RequestParam {
      * @return Map<String, Object>
      */
     private static Map<String, Object> getReqParamMap(ServerHttpRequest request) {
-        String method = request.getMethodValue();
+        String method = request.getMethod().name();
         Map<String, Object> resultMap = new HashMap<>();
         Gson gson = new Gson();
         if (METHOD_GET.equals(method)) {
